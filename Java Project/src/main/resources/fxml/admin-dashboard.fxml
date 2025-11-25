@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.eventmanagement.controller.AdminController">
+   <top>
+      <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: #2c3e50;">
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+         <children>
+            <Label style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" text="Admin Dashboard" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="userLabel" style="-fx-text-fill: white;" text="Welcome, Admin" />
+            <Button fx:id="logoutButton" onAction="#handleLogout" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Logout" />
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Dashboard">
+               <content>
+                  <ScrollPane fitToWidth="true">
+                     <content>
+                        <VBox spacing="20.0">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <HBox fx:id="statsCards" spacing="20.0" />
+                              <HBox spacing="20.0">
+                                 <children>
+                                    <PieChart fx:id="userRoleChart" prefHeight="300.0" prefWidth="400.0" title="User Role Distribution" />
+                                    <BarChart fx:id="eventStatusChart" prefHeight="300.0" prefWidth="400.0" title="Events by Status">
+                                      <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                      </yAxis>
+                                    </BarChart>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </content>
+          </Tab>
+          <Tab text="User Management">
+               <content>
+                  <VBox spacing="10.0">
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                     <children>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Button onAction="#showAddUserDialog" text="Add User" />
+                              <Button onAction="#showEditUserDialog" text="Edit User" />
+                              <Button onAction="#deleteSelectedUser" text="Delete User" />
+                              <Button onAction="#refreshUserTable" text="Refresh" />
+                           </children>
+                        </HBox>
+                        <TableView fx:id="userTable" VBox.vgrow="ALWAYS">
+                          <columns>
+                            <TableColumn fx:id="usernameCol" prefWidth="100.0" text="Username" />
+                            <TableColumn fx:id="fullNameCol" prefWidth="150.0" text="Full Name" />
+                              <TableColumn fx:id="emailCol" prefWidth="200.0" text="Email" />
+                              <TableColumn fx:id="roleCol" prefWidth="100.0" text="Role" />
+                              <TableColumn fx:id="activeCol" prefWidth="75.0" text="Active" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </content>
+          </Tab>
+            <Tab text="Event Approvals">
+               <content>
+                  <VBox spacing="10.0">
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                     <children>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Button onAction="#approveSelectedEvent" style="-fx-background-color: #2ecc71; -fx-text-fill: white;" text="Approve" />
+                              <Button onAction="#rejectSelectedEvent" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Reject" />
+                              <Button onAction="#showEventDetails" text="View Details" />
+                              <Button onAction="#refreshEventTable" text="Refresh" />
+                           </children>
+                        </HBox>
+                        <TableView fx:id="eventTable" VBox.vgrow="ALWAYS">
+                          <columns>
+                            <TableColumn fx:id="titleCol" prefWidth="200.0" text="Title" />
+                            <TableColumn fx:id="organizerCol" prefWidth="100.0" text="Organizer" />
+                              <TableColumn fx:id="dateCol" prefWidth="100.0" text="Date" />
+                              <TableColumn fx:id="venueCol" prefWidth="150.0" text="Venue" />
+                              <TableColumn fx:id="statusCol" prefWidth="100.0" text="Status" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </content>
+            </Tab>
+            <Tab text="System Logs">
+               <content>
+                  <VBox spacing="10.0">
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                     <children>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Button onAction="#refreshSystemLogs" text="Refresh Logs" />
+                              <Button onAction="#clearSystemLogs" text="Clear Logs" />
+                           </children>
+                        </HBox>
+                        <TextArea fx:id="logArea" editable="false" style="-fx-font-family: monospace;" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+</BorderPane>
